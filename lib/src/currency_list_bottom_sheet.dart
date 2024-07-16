@@ -4,20 +4,20 @@ import 'currency.dart';
 import 'currency_list_view.dart';
 import 'currency_picker_theme_data.dart';
 
-void showCurrencyListBottomSheet({
-  required BuildContext context,
-  required ValueChanged<Currency> onSelect,
-  List<String>? favorite,
-  List<String>? currencyFilter,
-  String? searchHint,
-  bool showSearchField = true,
-  bool showFlag = true,
-  bool showCurrencyName = true,
-  bool showCurrencyCode = true,
-  bool useRootNavigator = false,
-  ScrollPhysics? physics,
-  CurrencyPickerThemeData? theme,
-}) {
+void showCurrencyListBottomSheet(
+    {required BuildContext context,
+    required ValueChanged<Currency> onSelect,
+    List<String>? favorite,
+    List<String>? currencyFilter,
+    String? searchHint,
+    bool showSearchField = true,
+    bool showFlag = true,
+    bool showCurrencyName = true,
+    bool showCurrencyCode = true,
+    bool useRootNavigator = false,
+    ScrollPhysics? physics,
+    CurrencyPickerThemeData? theme,
+    SortOrder? sordOrder}) {
   final ShapeBorder shape = theme?.shape ??
       const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
@@ -41,23 +41,24 @@ void showCurrencyListBottomSheet({
       showCurrencyName,
       showCurrencyCode,
       theme,
+      sordOrder,
     ),
   );
 }
 
 Widget _builder(
-  BuildContext context,
-  ValueChanged<Currency> onSelect,
-  List<String>? favorite,
-  List<String>? currencyFilter,
-  String? searchHint,
-  ScrollPhysics? physics,
-  bool showSearchField,
-  bool showFlag,
-  bool showCurrencyName,
-  bool showCurrencyCode,
-  CurrencyPickerThemeData? theme,
-) {
+    BuildContext context,
+    ValueChanged<Currency> onSelect,
+    List<String>? favorite,
+    List<String>? currencyFilter,
+    String? searchHint,
+    ScrollPhysics? physics,
+    bool showSearchField,
+    bool showFlag,
+    bool showCurrencyName,
+    bool showCurrencyCode,
+    CurrencyPickerThemeData? theme,
+    SortOrder? sortOrder) {
   final device = MediaQuery.of(context).size.height;
   final statusBarHeight = MediaQuery.of(context).padding.top;
   final height = theme?.bottomSheetHeight ??
@@ -75,6 +76,7 @@ Widget _builder(
       currencyFilter: currencyFilter,
       physics: physics,
       theme: theme,
+      sortOrder: sortOrder,
     ),
   );
 }

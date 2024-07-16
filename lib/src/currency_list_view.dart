@@ -63,21 +63,21 @@ class CurrencyListView extends StatefulWidget {
   /// currency list bottom sheet.
   final CurrencyPickerThemeData? theme;
 
-  const CurrencyListView(
-      {Key? key,
-      required this.onSelect,
-      this.favorite,
-      this.currencyFilter,
-      this.showSearchField = true,
-      this.searchHint,
-      this.showCurrencyCode = true,
-      this.showCurrencyName = true,
-      this.showFlag = true,
-      this.physics,
-      this.controller,
-      this.theme,
-      this.sortOrder = SortOrder.mostTraded})
-      : super(key: key);
+  const CurrencyListView({
+    Key? key,
+    required this.onSelect,
+    this.favorite,
+    this.currencyFilter,
+    this.showSearchField = true,
+    this.searchHint,
+    this.showCurrencyCode = true,
+    this.showCurrencyName = true,
+    this.showFlag = true,
+    this.physics,
+    this.controller,
+    this.theme,
+    this.sortOrder = SortOrder.mostTraded,
+  }) : super(key: key);
 
   @override
   _CurrencyListViewState createState() => _CurrencyListViewState();

@@ -1,5 +1,6 @@
 library currency_picker;
 
+import 'package:currency_picker/src/currency_list_view.dart';
 import 'package:flutter/material.dart';
 
 import 'src/currency.dart';
@@ -59,6 +60,7 @@ void showCurrencyPicker({
   bool useRootNavigator = false,
   ScrollPhysics? physics,
   CurrencyPickerThemeData? theme,
+  SortOrder? sordOrder,
   @Deprecated(
     'Use inputDecoration instead. '
     'This feature was deprecated after v2.0.18.',
@@ -82,6 +84,7 @@ void showCurrencyPicker({
     currencyFilter: currencyFilter,
     theme: theme,
     physics: physics,
+    sordOrder: sordOrder
   );
 }
 

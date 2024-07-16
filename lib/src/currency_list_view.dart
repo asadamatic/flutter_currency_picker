@@ -10,8 +10,6 @@ enum SortOrder {
   /// Default sort order
   mostTraded,
   alphabetic;
-
-  bool get isAlphabetic => this == SortOrder.alphabetic;
 }
 
 class CurrencyListView extends StatefulWidget {
@@ -109,7 +107,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
       _currencyList
           .removeWhere((element) => !currencyFilter.contains(element.code));
     }
-    if (sortOrder.isAlphabetic) {
+    if (sortOrder == SortOrder.alphabetic) {
       _currencyList.sort((currency, secondCurrency) {
         return currency.name
             .toLowerCase()

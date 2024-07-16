@@ -6,6 +6,14 @@ import 'currency_picker_theme_data.dart';
 import 'currency_service.dart';
 import 'currency_utils.dart';
 
+enum SortOrder {
+  /// Default sort order
+  mostTraded,
+  alphabetic;
+
+  bool get isAlphabetic => this == SortOrder.alphabetic;
+}
+
 class CurrencyListView extends StatefulWidget {
   /// Called when a currency is select.
   ///
@@ -51,24 +59,27 @@ class CurrencyListView extends StatefulWidget {
 
   final ScrollPhysics? physics;
 
+  final SortOrder? sortOrder;
+
   /// An optional argument for for customizing the
   /// currency list bottom sheet.
   final CurrencyPickerThemeData? theme;
 
-  const CurrencyListView({
-    Key? key,
-    required this.onSelect,
-    this.favorite,
-    this.currencyFilter,
-    this.showSearchField = true,
-    this.searchHint,
-    this.showCurrencyCode = true,
-    this.showCurrencyName = true,
-    this.showFlag = true,
-    this.physics,
-    this.controller,
-    this.theme,
-  }) : super(key: key);
+  const CurrencyListView(
+      {Key? key,
+      required this.onSelect,
+      this.favorite,
+      this.currencyFilter,
+      this.showSearchField = true,
+      this.searchHint,
+      this.showCurrencyCode = true,
+      this.showCurrencyName = true,
+      this.showFlag = true,
+      this.physics,
+      this.controller,
+      this.theme,
+      this.sortOrder = SortOrder.mostTraded})
+      : super(key: key);
 
   @override
   _CurrencyListViewState createState() => _CurrencyListViewState();
@@ -98,7 +109,13 @@ class _CurrencyListViewState extends State<CurrencyListView> {
       _currencyList
           .removeWhere((element) => !currencyFilter.contains(element.code));
     }
-
+    if (sortOrder.isAlphabetic) {
+      _currencyList.sort((currency, secondCurrency) {
+        return currency.name
+            .toLowerCase()
+            .compareTo(currency.name.toLowerCase());
+      });
+    }
     if (widget.favorite != null) {
       _favoriteList = _currencyService.findCurrenciesByCode(widget.favorite!);
     }
@@ -123,16 +140,17 @@ class _CurrencyListViewState extends State<CurrencyListView> {
           child: widget.showSearchField
               ? TextField(
                   controller: _searchController,
-                  decoration: widget.theme?.inputDecoration ?? InputDecoration(
-                    labelText: widget.searchHint ?? "Search",
-                    hintText: widget.searchHint ?? "Search",
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: const Color(0xFF8C98A8).withOpacity(0.2),
+                  decoration: widget.theme?.inputDecoration ??
+                      InputDecoration(
+                        labelText: widget.searchHint ?? "Search",
+                        hintText: widget.searchHint ?? "Search",
+                        prefixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: const Color(0xFF8C98A8).withOpacity(0.2),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
                   onChanged: _filterSearchResults,
                 )
               : Container(),

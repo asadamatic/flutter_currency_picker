@@ -109,9 +109,9 @@ class _CurrencyListViewState extends State<CurrencyListView> {
     }
     if (widget.sortOrder == SortOrder.alphabetic) {
       _currencyList.sort((currency, secondCurrency) {
-        return currency.name
+        return currency.code
             .toLowerCase()
-            .compareTo(currency.name.toLowerCase());
+            .compareTo(secondCurrency.code.toLowerCase());
       });
     }
     if (widget.favorite != null) {
